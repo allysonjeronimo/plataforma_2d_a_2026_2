@@ -1,21 +1,26 @@
 class_name Player extends CharacterBody2D
 
 const SPEED:int = 100
-const JUMP_VELOCITY:float = -280.0
+const JUMP_VELOCITY:float = -300.0
 const ANIMATION_IDLE:String = "idle"
 const ANIMATION_WALK:String = "walk"
 const ANIMATION_JUMP:String = "jump"
+const MAX_JUMP_COUNT:int = 2
 
 @onready var animated: AnimatedSprite2D = %AnimatedSprite2D
+var jump_count: int = 0
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	else:
+		jump_count = 0
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept") and (is_on_floor() or jump_count < MAX_JUMP_COUNT):
 		velocity.y = JUMP_VELOCITY
+		jump_count += 1
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

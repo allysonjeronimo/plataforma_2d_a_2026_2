@@ -112,15 +112,19 @@ radius = 6.0
 height = 16.0
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_fjrip")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 0.139118
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3vyb7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_bottom = 150
+limit_smoothed = true
